@@ -1,22 +1,22 @@
 import 'package:anime_link/models/genres_model.dart';
 
 class ItemDetalheModel {
-  int id;
-  String title;
-  String mainPictureMedium;
-  String mainPictureLarge;
+  int? id;
+  String? title;
+  String? mainPictureMedium;
+  String? mainPictureLarge;
   String? startDate;
   String? endDate;
-  String synopsis;
+  String? synopsis;
   int? rank;
-  int numScoringUsers;
-  String status;
+  int? numScoringUsers;
+  String? status;
   List<GenresModel>? genres;
   int? numVolumes;
   int? numChapters;
   int? numEpisodes;
   int? startSeassonYear;
-  int? startSeassonSeason;
+  String? startSeassonSeason;
 
   ItemDetalheModel({
     required this.id,
@@ -36,6 +36,8 @@ class ItemDetalheModel {
     this.startSeassonYear,
     this.startSeassonSeason,
   });
+
+  ItemDetalheModel.empty();
 
   fromJson(Map<String, dynamic> json){
     id = json["id"];

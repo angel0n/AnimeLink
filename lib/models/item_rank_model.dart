@@ -1,3 +1,5 @@
+import 'package:anime_link/enuns/item_type.dart';
+
 class ItemRankModel {
   final int id;
   final String title;
@@ -14,10 +16,10 @@ class ItemRankModel {
   });
 
   ItemRankModel.fromJson(Map<String, dynamic> json) :
-  id = json["id"],
-  mainPictureMedium = json["main_picture"]["medium"],
-  mainPictureLarge = json["main_picture"]["large"],
-  title = json["title"],
+  id = json["node"]["id"],
+  mainPictureMedium = json["node"]["main_picture"]["medium"],
+  mainPictureLarge = json["node"]["main_picture"]["large"],
+  title = json["node"]["title"],
   rank = json["ranking"]["rank"];
 
 }
