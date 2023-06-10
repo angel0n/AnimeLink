@@ -17,6 +17,8 @@ class ItemDetalheModel {
   int? numEpisodes;
   int? startSeassonYear;
   String? startSeassonSeason;
+  static String fieldsAnime = "id,title,main_picture,start_date,end_date,synopsis,rank,num_scoring_users,status,genres,num_episodes,start_season,studios";
+  static String fieldsManga = "id,title,main_picture,start_date,end_date,synopsis,rank,num_scoring_users,status,genres,num_volumes,num_chapters";
 
   ItemDetalheModel({
     required this.id,
@@ -39,7 +41,7 @@ class ItemDetalheModel {
 
   ItemDetalheModel.empty();
 
-  fromJson(Map<String, dynamic> json){
+  ItemDetalheModel.fromJson(Map<String, dynamic> json){
     id = json["id"];
     title = json["title"];
     mainPictureMedium = json["main_picture"]["medium"];
@@ -54,14 +56,15 @@ class ItemDetalheModel {
     numChapters = json["num_chapters"];
     numEpisodes = json["num_episodes"];
     
-    if(json["start_seasson"] != null){
-      startSeassonYear = json["start_seasson"]["year"];
-      startSeassonSeason = json["start_seasson"]["season"];
+    if(json["start_season"] != null){
+      startSeassonYear = json["start_season"]["year"];
+      startSeassonSeason = json["start_season"]["season"];
     }
 
     if(json["genres"] !=null){
       List<dynamic> listaGenres = json["genres"];
-      genres = listaGenres.map((e) => GenresModel.fromJson(e)).toList();
+      List<GenresModel> teste = listaGenres.map((e) => GenresModel.fromJson(e)).toList();
+      genres = teste;
     }
   }
     

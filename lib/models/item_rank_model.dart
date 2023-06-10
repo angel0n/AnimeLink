@@ -1,5 +1,3 @@
-import 'package:anime_link/enuns/item_type.dart';
-
 class ItemRankModel {
   final int id;
   final String title;

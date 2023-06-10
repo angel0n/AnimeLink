@@ -22,9 +22,28 @@ class ItemDetalheCubit extends ChangeNotifier{
     super.dispose();
   }
 
+  Future<void> traduzir() async{
+    try {
+      if(_state.itemDetalhe.synopsis == null){
+        return;
+      }
+
+     _stateController.add(_state.copyWith(loading: true));
+
+      ItemDetalheModel itemDetalhe = _state.itemDetalhe;
+
+      itemDetalhe.synopsis = await repository.traduzir(itemDetalhe.synopsis!);
+
+      _state = _state.copyWith(loading: false, itemDetalhe: itemDetalhe);
+      _stateController.add(_state);
+    } catch (error) {
+      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: error.toString().replaceAll("Exception:", "")));
+    }
+  }
+
   Future<void> buscaDetalhesItem(ItemType type, int id) async{
     if(type == ItemType.mangas){
-      buscaDetalhesMangas();
+      buscaDetalhesMangas(id);
     }
 
     if(type == ItemType.animes){
@@ -36,16 +55,25 @@ class ItemDetalheCubit extends ChangeNotifier{
     try {
      _stateController.add(_state.copyWith(loading: true));
 
-      await repository.buscaDetalhesAnimes(id);
+      ItemDetalheModel itemDetalhe = await repository.buscaDetalhesAnimes(id);
 
+      _state = _state.copyWith(loading: false, itemDetalhe: itemDetalhe);
+      await traduzir();
+      _stateController.add(_state);
     } catch (error) {
       _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: error.toString().replaceAll("Exception:", "")));
     }
   }
 
-  Future<void> buscaDetalhesMangas() async{
+  Future<void> buscaDetalhesMangas(int id) async{
     try {
-     
+     _stateController.add(_state.copyWith(loading: true));
+
+      ItemDetalheModel itemDetalhe = await repository.buscaDetalhesMangas(id);
+
+      _state = _state.copyWith(loading: false, itemDetalhe: itemDetalhe);
+      await traduzir();
+      _stateController.add(_state);
     } catch (error) {
       _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: error.toString().replaceAll("Exception:", "")));
     }

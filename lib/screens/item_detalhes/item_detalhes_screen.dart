@@ -65,6 +65,8 @@ class _ItemDetalhesScreenState extends State<ItemDetalhesScreen> {
                 startSeason: state.itemDetalhe.startSeassonSeason,
                 startSeasonYear: state.itemDetalhe.startSeassonYear,
                 numEpisodes: state.itemDetalhe.numEpisodes,
+                numChapters: state.itemDetalhe.numChapters,
+                numVolumes: state.itemDetalhe.numVolumes,
               ),
               ItemDetalheBody(
                 genres: state.itemDetalhe.genres,

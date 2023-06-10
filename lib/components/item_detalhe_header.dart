@@ -12,7 +12,9 @@ class ItemDetalheHeader extends StatelessWidget {
     required this.dateEnd,
     required this.startSeasonYear,
     required this.startSeason,
-    required this.numEpisodes,
+    this.numEpisodes, 
+    this.numChapters, 
+    this.numVolumes,
   });
 
   final String pictureMedium;
@@ -24,23 +26,25 @@ class ItemDetalheHeader extends StatelessWidget {
   final int? startSeasonYear;
   final String? startSeason;
   final int? numEpisodes;
+  final int? numChapters;
+  final int? numVolumes;
 
   @override
   Widget build(BuildContext context) {
-    String dateStartFormat = "";
-    String dateEndFormat = "";
-    if(dateStart != null){
-      dateStartFormat = dateStart!.isNotEmpty && DateTime.tryParse(dateStart!) != null
-        ? DateFormat('dd/MM/yyyy').format(DateTime.parse(dateStart!))
-        : "??/??/????";
-    }
-    
-    if(dateStart != null) {
-      dateEndFormat = dateEnd!.isNotEmpty && DateTime.tryParse(dateEnd!) != null
-        ? DateFormat('dd/MM/yyyy').format(DateTime.parse(dateEnd!))
-        : "??/??/????";
+    String dateStartFormat = "??/??/????";
+    String dateEndFormat = "??/??/????";
+    if (dateStart != null) {
+      dateStartFormat =
+          dateStart!.isNotEmpty && DateTime.tryParse(dateStart!) != null
+              ? DateFormat('dd/MM/yyyy').format(DateTime.parse(dateStart!))
+              : "??/??/????";
     }
 
+    if (dateEnd != null) {
+      dateEndFormat = dateEnd!.isNotEmpty && DateTime.tryParse(dateEnd!) != null
+          ? DateFormat('dd/MM/yyyy').format(DateTime.parse(dateEnd!))
+          : "??/??/????";
+    }
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
@@ -52,7 +56,9 @@ class ItemDetalheHeader extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: pictureMedium.isNotEmpty ? Image.network(pictureMedium) : null,
+                child: pictureMedium.isNotEmpty
+                    ? Image.network(pictureMedium)
+                    : null,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 15, 0),
@@ -89,7 +95,7 @@ class ItemDetalheHeader extends StatelessWidget {
                               color: Color.fromRGBO(183, 183, 183, 1)),
                         ),
                         Text(
-                          status,
+                          trocaStatus(status),
                           style: const TextStyle(
                             fontSize: 20,
                           ),
@@ -143,31 +149,56 @@ class ItemDetalheHeader extends StatelessWidget {
                               color: Color.fromRGBO(183, 183, 183, 1)),
                         ),
                         Text(
-                          "$startSeason/$startSeasonYear",
+                          "${startSeason ?? ""}${startSeason != null ? "/" : ""} ${startSeasonYear ?? ""}",
                           style: const TextStyle(
                             fontSize: 20,
                           ),
                         )
                       ],
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          "Eps",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(183, 183, 183, 1)),
-                        ),
-                        Text(
-                          "$numEpisodes",
-                          style: const TextStyle(
-                            fontSize: 20,
+                    Visibility(
+                      visible: numEpisodes != null,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            "Eps",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color.fromRGBO(183, 183, 183, 1)),
                           ),
-                        )
-                      ],
-                    )
+                          Text(
+                            "$numEpisodes",
+                            style: const TextStyle(
+                              fontSize: 20,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Visibility(
+                      visible: numChapters != null || numVolumes != null,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            "Vol/Cap",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color.fromRGBO(183, 183, 183, 1)),
+                          ),
+                          Text(
+                            "${numVolumes ?? "??"}/${numChapters ?? "??"}",
+                            style: const TextStyle(
+                              fontSize: 20,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    
                   ],
                 ),
               )
@@ -177,14 +208,32 @@ class ItemDetalheHeader extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold
-              ),
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
           )
         ],
       ),
     );
+  }
+
+  String trocaStatus(String status) {
+    switch (status) {
+      case "finished_airing":
+        return "Finalizado";
+      case "currently_airing":
+        return "Exibindo";
+      case "not_yet_aired":
+        return "Ainda não exibido";
+      case "finished":
+        return "Finalizado";
+      case "currently_publishing":
+        return "Publicando";
+      case "not_yet_published":
+        return "Não publicado";
+      case "on_hiatus":
+        return "Hiatus";
+      default:
+        return "";
+    }
   }
 }

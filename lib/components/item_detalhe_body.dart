@@ -1,6 +1,7 @@
 import 'package:anime_link/models/genres_model.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:translator/translator.dart';
 
 class ItemDetalheBody extends StatelessWidget {
   const ItemDetalheBody({
