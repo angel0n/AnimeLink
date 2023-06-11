@@ -59,7 +59,7 @@ class AnimesSeasonCubit extends ChangeNotifier {
       _stateController.add(_state.copyWith(
           error: true,
           loading: false,
-          errorMessage: error.toString().replaceAll("Exception:", "")));
+          errorMessage: "Falha ao buscar animes!"));
     }
   }
 
@@ -79,7 +79,7 @@ class AnimesSeasonCubit extends ChangeNotifier {
     } catch (error) {
       _stateController.add(_state.copyWith(
           error: true,
-          errorMessage: error.toString().replaceAll("Exception:", "")));
+          errorMessage: "Falha ao buscar animes!"));
     }
   }
 }

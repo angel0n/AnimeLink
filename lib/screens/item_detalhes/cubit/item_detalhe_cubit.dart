@@ -37,7 +37,7 @@ class ItemDetalheCubit extends ChangeNotifier{
       _state = _state.copyWith(loading: false, itemDetalhe: itemDetalhe);
       _stateController.add(_state);
     } catch (error) {
-      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: error.toString().replaceAll("Exception:", "")));
+      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: "Falha ao traduzir a sinopse!"));
     }
   }
 
@@ -61,7 +61,7 @@ class ItemDetalheCubit extends ChangeNotifier{
       await traduzir();
       _stateController.add(_state);
     } catch (error) {
-      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: error.toString().replaceAll("Exception:", "")));
+      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: "Falha ao buscar detralhes do Anime!"));
     }
   }
 
@@ -75,7 +75,7 @@ class ItemDetalheCubit extends ChangeNotifier{
       await traduzir();
       _stateController.add(_state);
     } catch (error) {
-      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: error.toString().replaceAll("Exception:", "")));
+      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: "Falha ao buscar detalhes do manga!"));
     }
   }
 }

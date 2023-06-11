@@ -40,7 +40,7 @@ class HomeCubit extends ChangeNotifier{
       _state = _state.copyWith(itensRank: list);
       _stateController.add(_state);
     } catch (error) {
-      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: error.toString().replaceAll("Exception:", "")));
+      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: "Houve uma falha ao buscar os animes!"));
     }
   }
 
@@ -53,7 +53,7 @@ class HomeCubit extends ChangeNotifier{
       _state = _state.copyWith(itensRank: list);
       _stateController.add(_state);
     } catch (error) {
-      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: error.toString().replaceAll("Exception:", "")));
+      _stateController.add(_state.copyWith(error: true, loading: false, errorMessage: "Houve uma falha ao buscar os mangas!"));
     }
   }
 }
