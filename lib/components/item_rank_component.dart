@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class ItemRankComponent extends StatefulWidget {
   final ItemRankModel itemRank;
   final ItemType type;
-  const ItemRankComponent({super.key, required this.itemRank, required this.type});
+  const ItemRankComponent(
+      {super.key, required this.itemRank, required this.type});
 
   @override
   State<ItemRankComponent> createState() => _ItemRankComponentState();
@@ -19,11 +20,14 @@ class _ItemRankComponentState extends State<ItemRankComponent> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
       child: ListTile(
-        leading: Image.network(itemRank.mainPictureMedium),
+        leading: ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 100,maxWidth: 35),
+            child: Image.network(itemRank.mainPictureMedium)),
         title: Text(itemRank.title),
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ItemDetalhesScreen(itemId: itemRank.id, type: widget.type),
+            builder: (context) =>
+                ItemDetalhesScreen(itemId: itemRank.id, type: widget.type),
           ));
         },
       ),

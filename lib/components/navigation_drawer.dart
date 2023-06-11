@@ -1,3 +1,4 @@
+import 'package:anime_link/screens/animes_season/animes_season_screen.dart';
 import 'package:anime_link/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class CustomNavigationDrawer extends StatelessWidget {
           title: const Text("Temporada"),
           onTap: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
+              builder: (context) => const AnimesSeasonScreen(),
             ),
           ),
         ),

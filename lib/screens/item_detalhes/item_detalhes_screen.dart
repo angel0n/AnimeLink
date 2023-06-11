@@ -1,3 +1,4 @@
+import 'package:anime_link/components/custom_alert_dialog.dart';
 import 'package:anime_link/components/item_detalhe_body.dart';
 import 'package:anime_link/components/item_detalhe_header.dart';
 import 'package:anime_link/enuns/item_type.dart';
@@ -48,9 +49,13 @@ class _ItemDetalhesScreenState extends State<ItemDetalhesScreen> {
           }
 
           if (state.error) {
-            return Center(
-              child: Text(state.errorMessage!),
-            );
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                customAlertDialog(
+                  context: context,
+                  title: "Ops...",
+                  descricao: state.errorMessage!,
+                );
+              });
           }
 
           return ListView(

@@ -1,3 +1,4 @@
+import 'package:anime_link/components/custom_alert_dialog.dart';
 import 'package:anime_link/components/item_rank_component.dart';
 import 'package:anime_link/components/navigation_drawer.dart';
 import 'package:anime_link/enuns/item_type.dart';
@@ -48,9 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
             }
 
             if (state.error) {
-              return Center(
-                child: Text(state.errorMessage!),
-              );
+              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                customAlertDialog(
+                  context: context,
+                  title: "Ops...",
+                  descricao: state.errorMessage!,
+                );
+              });
             }
 
             return Column(
