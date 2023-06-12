@@ -1,4 +1,5 @@
 import 'package:anime_link/screens/animes_season/animes_season_screen.dart';
+import 'package:anime_link/screens/busca/busca_screen.dart';
 import 'package:anime_link/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,11 @@ class CustomNavigationDrawer extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.search),
           title: const Text("Busca"),
-          onTap: () {},
+          onTap: () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const BuscaScreen(),
+            ),
+          ),
         ),
         ListTile(
           leading: const Icon(Icons.forum),
